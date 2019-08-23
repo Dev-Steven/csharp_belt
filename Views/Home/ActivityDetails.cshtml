@@ -1,0 +1,26 @@
+@model Activity
+
+<div class="row">
+    <h1 class="col-5">Dojo Activity Center</h1>
+    <p class="col-3">Welcome, @ViewBag.Username</p>
+    <a class="col-2" asp-action="Dashboard" asp-controller="Home">Dashboard</a>
+    <a class="col-2" asp-action="LogOut" asp-controller="Home">Logout</a>
+</div>
+
+<div class="row">
+    <h1 class="col-5">@Model.Title</h1>
+    <div class=" col-4 text-right">
+        
+    </div>
+</div>
+<h3>Event Coordinator: @Model.Creator.FirstName @Model.Creator.LastName</h3>
+<h3>Description:</h3>
+<p>
+    @Model.Description
+</p>
+
+<h3>Participants:</h3>
+@foreach(var person in @Model.AllParticipants)
+{
+    <p>* @person.Rsvped.FirstName</p>
+}

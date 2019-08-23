@@ -1,0 +1,49 @@
+@model Activity
+
+<div class="row">
+    <h1 class="col-5">Dojo Activity Center</h1>
+    <p class="col-3">Welcome, @ViewBag.UserName</p>
+    <a class="col-3" asp-action="LogOut" asp-controller="Home">Logout</a>
+</div>
+
+<h1>Create an Activity</h1>
+<form asp-action="AddActivity" asp-controller="Home" method="post">
+    <br>
+    <span asp-validation-for="Title"></span>
+    <br>
+    <label asp-for="Title"></label>
+    <input class="form-control" asp-for="Title">
+    <br>
+    <span asp-validation-for="Date"></span>
+    <br>
+    <label asp-for="Date"></label>
+    <input class="form-control" asp-for="Date">
+    <br>
+    <span asp-validation-for="Time"></span>
+    <br>
+    <label asp-for="Time"></label>
+    <input class="form-control" asp-for="Time">
+    <br>
+    <span asp-validation-for="DurationTime"></span>
+    <br>
+    <label asp-for="DurationTime"></label>
+    <input class="form-control" asp-for="DurationTime">
+    <br>
+    <label asp-for="DurationUnit"></label>
+    <select class="form-control" asp-for="DurationUnit">
+        <option value="Hours">Hours</option>
+        <option value="Minutes">Minutes</option>
+        <option value="Days">Days</option>
+    </select>
+    <br>
+    <span asp-validation-for="Description"></span>
+    <br>
+    <label asp-for="Description"></label>
+    <textarea class="form-control" asp-for="Description" rows="4" cols="5"></textarea>
+    <br>
+    <div class="text-right">
+        <button class="btn btn-success">Create</button>
+        <a asp-action="Dashboard" asp-controller="Home" class="btn btn-danger">Cancel</a>
+    </div>
+</form>
+

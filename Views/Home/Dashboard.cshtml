@@ -1,0 +1,53 @@
+@model List<Activity>
+
+<div class="row">
+    <h1 class="col-5">Dojo Activity Center</h1>
+    <p class="col-3">Welcome, @ViewBag.Username</p>
+    <a class="col-3" asp-action="LogOut" asp-controller="Home">Logout</a>
+</div>
+
+<table class="table">
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">Activity</th>
+      <th scope="col">Date and Time</th>
+      <th scope="col">Duration</th>
+      <th scope="col">Event Coordinator</th>
+      <th scope="col">No. of Participants</th>
+      <th scope="col">Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+      @foreach(var act in Model)
+      {
+        <tr>
+            <td><a asp-action="ActivityDetails" asp-controller="Home" asp-route-actId="@act.ActivityId">@act.Title</a></td>
+            <td>@act.Date at @act.Time</td>
+            <td>@act.DurationTime @act.DurationUnit</td>
+            <td>@act.Creator.FirstName @act.Creator.LastName</td>
+            <td>@act.AllParticipants.Count</td>
+            <td>
+                @if(act.UserId != ViewBag.UserId)
+                {
+                    
+                    if(act.AllParticipants.Any(p => p.UserId == ViewBag.UserId))
+                    {
+                        <a asp-action="Flake" asp-controller="Home" asp-route-actId="@act.ActivityId">Flake</a>
+                    }
+                    else
+                    {
+                        <a asp-action="Join" asp-controller="Home" asp-route-actId="@act.ActivityId">Join</a>
+                    }
+                }
+                else
+                {
+                    <a asp-action="Delete" asp-controller="Home" asp-route-actId="@act.ActivityId">Delete</a>
+                }
+            </td>
+        </tr>
+      }
+  </tbody>
+</table>
+<div class="text-right">
+    <a class="btn btn-primary" asp-action="CreateActivity" asp-controller="Home">Add a New Activity</a>
+</div>
